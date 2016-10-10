@@ -131,6 +131,8 @@ int main()
 		GraphBuilder Plotter;
 		Plotter.AddFunc(&Ret, "OriginalFunc");
 		Plotter.AddFunc(&Lagrange, "Lagrange");
+		MathFunc Diff = Ret - Lagrange;
+		Plotter.AddFunc(&Diff, "Diff");
 
 		printf("--------------------------\n");
 		printf("Now let's draw it. Insert starting position\n");
