@@ -15,7 +15,10 @@ class MathFunc
 {
 private:
 	OneParamFunc Func;
+
 	std::string StringRepresentation;
+	
+
 public:
 
 
@@ -52,6 +55,7 @@ public:
 	//Деление на ноль еще никто не отменял!
 	MathFunc operator/(MathFunc &Right);
 
+	MathFunc operator^(MathFunc &Right);
 	//------------------
 	//Более сложные вещи
 	//------------------
@@ -60,6 +64,15 @@ public:
 	//Композиция
 	MathFunc operator()(MathFunc InnerPart);
 
+};
+
+class Envelope
+{
+private:
+	MathFunc InnerFunc;
+public:
+	void Set(MathFunc Func);
+	MathFunc Get();
 };
 
 class GraphBuilder

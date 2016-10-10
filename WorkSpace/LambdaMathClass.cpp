@@ -11,9 +11,12 @@ MathFunc::MathFunc(TYPE Initializer)
 }
 
 MathFunc::MathFunc()
-{
+{//Нулевая константа. К слову теперь производные констант на неё пологаются
 	Func = [](TYPE x) {return 0;};
+
 	StringRepresentation = "0";
+
+
 }
 
 MathFunc::MathFunc(MathFunc &Parent)
@@ -50,6 +53,8 @@ TYPE MathFunc::operator()(TYPE x)
 MathFunc MathFunc::operator+(MathFunc &Right)
 {
 	auto LocalFunc = Func;//Лямбды не могут захватить поля класса. Создаем локальную копию
+	
+
 	auto RetLambda = [A = LocalFunc, B = Right.Func](TYPE x) {return A(x) + B(x);};
 
 	std::string RetStr;
@@ -59,7 +64,9 @@ MathFunc MathFunc::operator+(MathFunc &Right)
 	RetStr += Right.StringRepresentation.c_str();
 	RetStr += ")";
 
-	return MathFunc(RetLambda, RetStr);
+	MathFunc Ret(RetLambda, RetStr);
+
+	return Ret;
 }
 
 MathFunc MathFunc::operator-(MathFunc &Right)
@@ -105,6 +112,19 @@ MathFunc MathFunc::operator/(MathFunc &Right)
 	return MathFunc(RetLambda, RetStr);
 }
 
+MathFunc MathFunc::operator^(MathFunc &Right)
+{
+	auto LocalFunc = Func;//Лямбды не могут захватить поля класса. Создаем локальную копию
+	auto RetLambda = [A = LocalFunc, B = Right.Func](TYPE x) {return pow(A(x), B(x));};
+	std::string RetStr;
+	RetStr += "(";
+	RetStr += StringRepresentation.c_str();
+	RetStr += "^";
+	RetStr += Right.StringRepresentation.c_str();
+	RetStr += ")";
+
+	return MathFunc(RetLambda, RetStr);
+}
 
 MathFunc& MathFunc::operator=(MathFunc &Right)
 {
@@ -130,7 +150,14 @@ MathFunc MathFunc::operator()(MathFunc InnerPart)
 }
 
 
-
+void Envelope::Set(MathFunc Func)
+{
+	InnerFunc = Func;
+}
+MathFunc Envelope::Get()
+{
+	return InnerFunc;
+}
 
 //Плоттер
 

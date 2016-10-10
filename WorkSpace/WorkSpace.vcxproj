@@ -146,12 +146,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LambdaMathClass.h" />
+    <ClInclude Include="RPN.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="StringConverter.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LambdaMathClass.cpp" />
+    <ClCompile Include="RPN.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="WorkSpace.cpp" />
   </ItemGroup>
