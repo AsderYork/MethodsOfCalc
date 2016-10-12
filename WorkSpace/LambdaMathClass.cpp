@@ -149,6 +149,22 @@ MathFunc MathFunc::operator()(MathFunc InnerPart)
 	return MathFunc(RetLambda, RetStr);
 }
 
+MathFunc MathFunc::Diff(TYPE Step)
+{
+	auto LocalFunc = Func;//Лямбды не могут захватить поля класса. Создаем локальную копию
+	auto RetLambda = [A = LocalFunc, Step](TYPE x) {return ((A(x+Step)-A(x-Step))/(2*Step));};
+
+	std::string RetStr;
+	RetStr += "Diff(";
+	RetStr += StringRepresentation.c_str();
+	RetStr += ")";
+
+	return MathFunc(RetLambda, RetStr);
+}
+
+
+
+
 
 void Envelope::Set(MathFunc Func)
 {

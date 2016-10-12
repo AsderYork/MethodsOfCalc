@@ -41,6 +41,10 @@ public:
 
 	void AddFunctionToLibrary(MathFunc* Func, std::string Name);
 
+	MathFunc GetFuncFromLibrary(std::string Name);
+
+	void ListFuncsInLibrary();
+
 	static std::vector<SimpleBlocks> StringToSimpleBlock(std::string Str);
 
 	/*static std::string StringToRPNString(std::string Str, std::string Variable = "x")

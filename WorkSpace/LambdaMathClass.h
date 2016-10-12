@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <vector>
 
+
 typedef float TYPE;
 typedef std::function<TYPE(TYPE)> OneParamFunc;
 
@@ -63,6 +64,9 @@ public:
 
 	//Композиция
 	MathFunc operator()(MathFunc InnerPart);
+
+	//Производная
+	MathFunc Diff(TYPE Step);
 
 };
 

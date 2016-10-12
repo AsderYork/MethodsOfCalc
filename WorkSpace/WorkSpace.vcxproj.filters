@@ -19,6 +19,9 @@
     <Filter Include="Заголовочные файлы\PRN converter">
       <UniqueIdentifier>{0cc18314-23f6-455a-88c6-73d13b4183c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы исходного кода\Menu">
+      <UniqueIdentifier>{ba14c621-3e31-4247-99f8-09cddaa457e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,6 +39,9 @@
     <ClInclude Include="RPN.h">
       <Filter>Заголовочные файлы\PRN converter</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы исходного кода\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -49,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="RPN.cpp">
       <Filter>Заголовочные файлы\PRN converter</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Файлы исходного кода\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

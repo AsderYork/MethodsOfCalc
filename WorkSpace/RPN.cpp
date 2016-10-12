@@ -1,5 +1,6 @@
 #include "RPN.h"
 
+
 bool IsNumber(std::string Str)
 {
 	for (int i = 0; i < Str.size(); i++) {
@@ -326,5 +327,25 @@ void RPN_Converter::AddBasicFunctions()
 
 
 	AddFunctionToLibrary(new MathFunc([](TYPE x) {return sqrt(x);}, "sqrt"), "sqrt");
+}
 
+MathFunc RPN_Converter::GetFuncFromLibrary(std::string Name)
+{
+	MathFunc Return;
+	try {
+		Return = *FuncMap.at(Name);
+	}
+	catch (...) {
+		printf("There is no function %s. Zero is used\n", Name.c_str());
+	}
+	return Return;
+}
+
+void RPN_Converter::ListFuncsInLibrary() {
+	printf("--------------FuncList----------\n");
+	printf("FuncName  ||  Function\n");
+	for (auto it = FuncMap.begin(); it != FuncMap.end(); it++)	{
+		printf("%s  ||  %s\n", it->first.c_str(), it->second->GetString());
+	}
+	printf("--------------------------------\n");
 }
