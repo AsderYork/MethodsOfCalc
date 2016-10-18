@@ -69,7 +69,37 @@ MathFunc GetLagrangePolynom(MathFunc Func, TYPE FirstStep, TYPE StepDelta, int A
 	return Result;
 }
 
+MathFunc GetLagrangeReminder(MathFunc Func, MathFunc Diff, TYPE FirstStep, TYPE StepDelta, int AmountOfSteps)
+{
+	assert(AmountOfSteps >= 1);
+	MathFunc JustX([](TYPE x) {return x;}, "x");
 
+
+	std::vector<TYPE> Nodes;
+	Nodes.push_back(FirstStep);//записываем позицию первого узла
+
+	for (int i = 1; i < AmountOfSteps; i++) {
+		Nodes.push_back(FirstStep + i*StepDelta);//» продолжаем дл€ оставшихс€ узлов
+	}
+
+
+	MathFunc MulPart = JustX - MathFunc(Nodes[0]);
+	//—оставл€ем произведение частей, завис€щих от узлов
+	for (int i = 1; i < AmountOfSteps; i++) {
+		MulPart = MulPart*(JustX - MathFunc(Nodes[i]));
+	}
+
+	int Fractorial = 1;
+	for (int i = 2; i <= AmountOfSteps; i++) {
+		Fractorial *= i;
+	}
+
+	MathFunc Result = Diff / MathFunc(Fractorial);
+	Result = Result*MulPart;
+
+	
+	return Result;
+}
 
 
 void MainOptions()
@@ -120,7 +150,7 @@ void AddNewFunction(RPN_Converter* Converter)
 void Lagranging(RPN_Converter* Converter)
 {
 	printf("--------Lagranging--------\n");
-	printf("Choose function for lagranging\n");
+	printf("Choose function for lagranging. Btw, if yow want a reminder, you'll better prepare the diff func before lagranging\n");
 
 	char Tmp[512];
 	std::cin >> Tmp;
@@ -172,6 +202,31 @@ void Lagranging(RPN_Converter* Converter)
 	printf("Insert function name'\n");
 	std::cin >> Tmp;
 	Converter->AddFunctionToLibrary(Lagrange, Tmp);
+
+
+	printf("Maybe you also want to claclulate and save the remainder? [Y-Continue/N-Leave]?'\n");
+	printf("Chose diff func for the one you've been lagranging. It should be a %i-th one\n", AmountOfNodes);
+
+	std::cin >> Tmp;
+
+	MathFunc Diff = Converter->GetFuncFromLibrary(Tmp);
+	printf("--------------------------\n");
+	printf("%s\n", Func.GetString());
+
+	printf("Is that Correct [Y-Continue/N-Leave]?'\n");
+	OneSym = 0;
+	std::cin >> OneSym;
+	switch (OneSym)
+	{
+	case 'Y': {break;}
+	case 'N': {return;}
+	default: {return;}
+	}
+	MathFunc *Remainder = new MathFunc(GetLagrangeReminder(Func, Diff, StartPos, Step, AmountOfNodes));
+
+	printf("Insert remainder function name'\n");
+	std::cin >> Tmp;
+	Converter->AddFunctionToLibrary(Remainder, Tmp);
 	return;
 }
 

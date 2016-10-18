@@ -327,6 +327,10 @@ void RPN_Converter::AddBasicFunctions()
 
 
 	AddFunctionToLibrary(new MathFunc([](TYPE x) {return sqrt(x);}, "sqrt"), "sqrt");
+
+
+	AddFunctionToLibrary(new MathFunc([](TYPE x) {return abs(x);}, "abs"), "abs");
+
 }
 
 MathFunc RPN_Converter::GetFuncFromLibrary(std::string Name)

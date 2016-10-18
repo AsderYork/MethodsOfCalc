@@ -162,6 +162,24 @@ MathFunc MathFunc::Diff(TYPE Step)
 	return MathFunc(RetLambda, RetStr);
 }
 
+MathFunc MathFunc::Max(TYPE Start, TYPE End, TYPE Precision)
+{
+	assert(Start < End);
+	assert(Precision > 0);
+	TYPE Iterator = Start;
+
+	TYPE RetVal = Func(Iterator);
+	while (Iterator <= End)
+	{
+		if (Func(Iterator) > RetVal) {
+			RetVal = Func(Iterator);
+		}
+		Iterator += Precision;
+	}
+
+	return MathFunc(RetVal);
+}
+
 
 
 

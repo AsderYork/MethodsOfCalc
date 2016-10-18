@@ -68,6 +68,8 @@ public:
 	//Производная
 	MathFunc Diff(TYPE Step);
 
+	//Максимумумы и прочее
+	MathFunc Max(TYPE Start, TYPE End, TYPE Precision);
 };
 
 class Envelope
